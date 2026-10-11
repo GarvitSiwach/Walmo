@@ -1,0 +1,86 @@
+"use client";
+
+import React from "react";
+import Image from "next/image";
+import { siteConfig } from "@/config/site";
+import { Button } from "@/components/ui/button";
+import { Sparkles, ArrowUpRight, Apple } from "lucide-react";
+
+export function Hero() {
+  const { heroCopy, links, assets } = siteConfig;
+
+  return (
+    <section className="flex-1 flex items-center w-full px-6 sm:px-10 lg:px-12 xl:px-16 py-4 sm:py-6 lg:py-0 overflow-hidden">
+      <div className="w-full max-w-[1580px] mx-auto my-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 xl:gap-8 items-center">
+          {/* Left Column: Hero Copy & Actions (~47% on desktop) */}
+          <div className="lg:col-span-6 xl:col-span-6 z-10 flex flex-col items-start w-full">
+            {/* Announcement Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FAF0EB] dark:bg-[#35231D] text-[#F56627] dark:text-[#FF702F] text-xs sm:text-sm font-medium mb-4 sm:mb-5 border border-[#F56627]/15 shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-[#F56627] dark:text-[#FF702F]" />
+              <span>{heroCopy.announcement}</span>
+            </div>
+
+            {/* Headline - Exact 3-line breakdown, ~84px at 1600px, 800 weight, -0.055em letter spacing, tight line-height */}
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] xl:text-[6rem] 2xl:text-[6.5rem] font-extrabold tracking-[-0.055em] text-[#151515] dark:text-[#F5F5F7] leading-[0.88] mb-5 sm:mb-6 font-sans">
+              Your saved reels,
+              <br />
+              <span className="text-[#F56627] dark:text-[#FF702F]">
+                turned into places
+                <br />
+                to explore.
+              </span>
+            </h1>
+
+            {/* Description - ~20px at 1600px, font weight 400, line height 1.55, max width ~620px */}
+            <p className="text-base sm:text-lg xl:text-[1.2rem] text-[#8E8E93] dark:text-[#A1A1A6] font-normal leading-[1.55] mb-7 sm:mb-8 max-w-[620px] font-sans">
+              {heroCopy.description}
+            </p>
+
+            {/* CTAs - 16px semibold modern sans-serif */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mb-3">
+              <a
+                href={links.appStore}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#F56627] hover:bg-[#E05518] text-white font-semibold text-[16px] shadow-sm hover:shadow transition-all duration-150 select-none active:scale-[0.98] font-sans"
+              >
+                <Apple className="w-5 h-5 fill-current" />
+                <span>{heroCopy.primaryCta}</span>
+                <ArrowUpRight className="w-4 h-4 opacity-80" />
+              </a>
+
+              <a
+                href={links.androidBeta}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-white hover:bg-neutral-50 dark:bg-[#1C1C1E] dark:hover:bg-[#2C2C2E] text-[#151515] dark:text-[#F5F5F7] border border-[#E5E5E7] dark:border-[#333337] font-semibold text-[16px] shadow-sm hover:shadow transition-all duration-150 select-none active:scale-[0.98] font-sans"
+              >
+                <span>{heroCopy.secondaryCta}</span>
+              </a>
+            </div>
+
+            {/* Availability Text */}
+            <p className="text-xs sm:text-sm text-[#8E8E93] dark:text-[#A1A1A6] font-normal pl-1 mt-1 font-sans">
+              {heroCopy.availability}
+            </p>
+          </div>
+
+          {/* Right Column: Primary Cinematic Hero Visual (~53% on desktop) */}
+          <div className="lg:col-span-6 xl:col-span-6 relative flex items-center justify-center lg:justify-end w-full h-[45vh] sm:h-[55vh] lg:h-[78vh] xl:h-[82vh] max-h-[820px]">
+            <div className="relative w-full h-full">
+              <Image
+                src={assets.heroImage}
+                alt="Cinematic 3D render of a car emerging from an iPhone screen, visualizing travel reels transformed into real-world destinations with Walmo"
+                fill
+                priority
+                className="object-contain object-center lg:object-right select-none drop-shadow-2xl scale-100 lg:scale-105 xl:scale-110 origin-center lg:origin-right"
+                sizes="(max-width: 1024px) 100vw, 53vw"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

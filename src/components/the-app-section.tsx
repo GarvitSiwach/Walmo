@@ -1,0 +1,361 @@
+import { ScrollReveal } from "@/components/scroll-reveal";
+import Image from "next/image";
+import {
+  Bookmark,
+  Clock,
+  Compass,
+  Hash,
+  Heart,
+  Home,
+  Map,
+  MapPin,
+  Plane,
+  Search,
+  Sparkle,
+  User,
+} from "lucide-react";
+
+const features = [
+  {
+    title: "Save from any reel",
+    description:
+      "Every place from your reels — organized in a searchable wishlist you can filter and sort.",
+    icon: Bookmark,
+  },
+  {
+    title: "Your places on a map",
+    description:
+      "Paste a reel link or share from Instagram — Walmo extracts every place and saves it to your map.",
+    icon: Map,
+  },
+  {
+    title: "Deep-dive any spot",
+    description:
+      "Ratings, hours, AI summaries, and one tap to navigate there.",
+    icon: Sparkle,
+  },
+];
+
+const places = [
+  {
+    src: "/assets/places/pin-bhaba.jpg",
+    name: "Pin bhaba pass trek",
+    loc: "Kinnaur, Himachal Pradesh",
+  },
+  {
+    src: "/assets/places/muling.jpg",
+    name: "Muling",
+    loc: "Lahaul and Spiti, Hima...",
+  },
+  {
+    src: "/assets/places/gartang-gali.jpg",
+    name: "Gartang Gali",
+    loc: "Uttarkashi, Uttarakhand",
+  },
+  {
+    src: "/assets/places/hagshu.jpg",
+    name: "Hagshu",
+    loc: "Hagshu, 194302",
+  },
+];
+
+function DeviceFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="relative mx-auto w-[230px] sm:w-[250px] lg:w-[280px]">
+      <div className="relative aspect-[9/19.5] rounded-[2.45rem] bg-[#1C1C1E] p-[8px] shadow-[0_28px_60px_rgba(28,20,12,0.18)] ring-1 ring-black/25">
+        <div className="relative h-full w-full overflow-hidden rounded-[2rem] bg-white">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StatusBar({
+  time = "6:30",
+  light = false,
+}: {
+  time?: string;
+  light?: boolean;
+}) {
+  return (
+    <div
+      className={`relative z-10 flex items-center justify-between px-5 pb-1 pt-2.5 text-[10px] font-semibold ${
+        light ? "text-white" : "text-neutral-900"
+      }`}
+    >
+      <span>{time}</span>
+      <div
+        aria-hidden="true"
+        className="absolute left-1/2 top-1.5 h-[21px] w-[86px] -translate-x-1/2 rounded-full bg-black"
+      />
+      <span className={`text-[9px] tracking-tight ${light ? "text-white" : "text-neutral-800"}`}>
+        5G
+      </span>
+    </div>
+  );
+}
+
+function TabBar({ active }: { active: "home" | "places" }) {
+  const items = [
+    { id: "home", label: "Home", icon: Home },
+    { id: "places", label: "Places", icon: MapPin },
+    { id: "explore", label: "Explore", icon: Compass },
+    { id: "trips", label: "Trips", icon: Plane },
+    { id: "profile", label: "Profile", icon: User },
+  ] as const;
+
+  return (
+    <div className="mt-auto flex items-center justify-between border-t border-neutral-100 px-3 pb-2.5 pt-1.5">
+      {items.map((item) => {
+        const Icon = item.icon;
+        const isActive = item.id === active;
+        return (
+          <div
+            key={item.id}
+            className={`flex flex-col items-center gap-0.5 ${
+              isActive ? "text-[#F56627]" : "text-neutral-400"
+            }`}
+          >
+            <Icon size={15} strokeWidth={isActive ? 2.4 : 1.8} />
+            <span className="text-[8px] font-medium">{item.label}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function MyPlacesScreen() {
+  return (
+    <div className="flex h-full flex-col bg-[#F7F7F8] text-neutral-900">
+      <StatusBar />
+      <div className="px-4 pt-1">
+        <h3 className="text-[17px] font-bold tracking-tight">My Places</h3>
+        <div className="mt-2.5 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <span className="rounded-full bg-[#F56627] px-3 py-1 text-[10px] font-semibold text-white">
+              Wishlist
+            </span>
+            <span className="text-[10px] font-medium text-neutral-400">Visited</span>
+          </div>
+          <Search size={14} className="text-neutral-400" />
+        </div>
+        <div className="mt-2.5 flex items-center rounded-full bg-white px-3 py-1.5 text-[10px] text-neutral-400 ring-1 ring-neutral-200">
+          <Search size={11} className="mr-1.5" />
+          Search wishlist...
+        </div>
+        <div className="mt-2.5 flex gap-1.5 overflow-hidden">
+          {[
+            { label: "Favourites", icon: Heart },
+            { label: "Testing saves", icon: Bookmark },
+            { label: "Favourites", icon: Heart },
+          ].map((chip, i) => {
+            const Icon = chip.icon;
+            return (
+              <span
+                key={`${chip.label}-${i}`}
+                className="inline-flex shrink-0 items-center gap-1 rounded-full bg-white px-2 py-1 text-[8px] font-medium text-neutral-600 ring-1 ring-neutral-200"
+              >
+                <Icon size={9} />
+                {chip.label}
+              </span>
+            );
+          })}
+          <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-neutral-500 ring-1 ring-neutral-200">
+            <Hash size={10} />
+          </span>
+        </div>
+      </div>
+
+      <div className="mt-3 grid flex-1 grid-cols-2 content-start gap-2 px-3">
+        {places.map((place) => (
+          <div
+            key={place.name}
+            className="overflow-hidden rounded-2xl bg-white shadow-[0_4px_12px_rgba(0,0,0,0.06)]"
+          >
+            <div className="relative aspect-[4/3]">
+              <Image
+                src={place.src}
+                alt={place.name}
+                fill
+                sizes="140px"
+                className="object-cover"
+              />
+            </div>
+            <div className="px-2 py-1.5">
+              <p className="truncate text-[10px] font-bold leading-tight">
+                {place.name}
+              </p>
+              <p className="truncate text-[8px] text-neutral-400">{place.loc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <TabBar active="places" />
+    </div>
+  );
+}
+
+function PlaceDetailScreen() {
+  return (
+    <div className="flex h-full flex-col bg-white text-neutral-900">
+      <div className="relative h-[42%] shrink-0">
+        <Image
+          src="/assets/places/gartang-gali.jpg"
+          alt="Gartang Gali"
+          fill
+          sizes="280px"
+          className="object-cover"
+        />
+        <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-black/35 to-transparent" />
+        <StatusBar time="6:32" light />
+      </div>
+
+      <div className="flex min-h-0 flex-1 flex-col px-4 pt-3">
+        <h3 className="text-[16px] font-bold tracking-tight">Gartang Gali</h3>
+        <p className="mt-0.5 flex items-center gap-1 text-[9px] text-neutral-400">
+          <MapPin size={10} />
+          4.7 (186) · Uttarkashi, Uttarakhand, India
+        </p>
+        <span className="mt-1.5 w-fit rounded-full bg-emerald-50 px-2 py-0.5 text-[9px] font-semibold text-emerald-600">
+          Worth it
+        </span>
+
+        <p className="mt-3 text-[8px] font-bold uppercase tracking-[0.16em] text-neutral-400">
+          Summary
+        </p>
+        <p className="mt-1 text-[10px] font-semibold leading-snug">
+          Don&apos;t miss this place in Harsil
+        </p>
+        <span className="mt-1.5 w-fit rounded-md bg-neutral-100 px-1.5 py-0.5 text-[8px] font-medium text-neutral-500">
+          adventure
+        </span>
+        <p className="mt-2 flex items-center gap-1 text-[9px] font-medium text-emerald-600">
+          <Clock size={10} />
+          Hours today 8:00 AM – 5:00 PM
+        </p>
+
+        <p className="mt-2.5 text-[9px] font-bold">Bridge</p>
+        <p className="mt-0.5 line-clamp-5 text-[8.5px] leading-[1.45] text-neutral-500">
+          Experience the thrill of walking across Gartang Gali, one of the oldest wooden bridges in Uttarakhand, suspended over the scenic Jadh Ganga river. This historic pedestrian walkway offers breathtaking mountain views and a unique glimpse into local history and architecture.
+        </p>
+      </div>
+
+      <div className="mt-auto flex items-center gap-2 px-3 pb-3 pt-2">
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-100 text-neutral-500">
+          <Bookmark size={15} />
+        </div>
+        <button
+          type="button"
+          className="flex-1 rounded-full bg-[#F56627] py-2.5 text-center text-[12px] font-semibold text-white"
+        >
+          Head there
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export function TheAppSection() {
+  return (
+    <ScrollReveal>
+      <section
+      id="the-app"
+      className="relative w-full bg-transparent px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+    >
+      <div className="mx-auto max-w-[1200px]">
+        <header className="mx-auto mb-4 max-w-[720px] text-center sm:mb-6">
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.32em] text-[#F56627] sm:text-xs">
+            The app
+          </p>
+          <h2 className="text-[2rem] font-extrabold leading-[1.08] tracking-[-0.045em] text-[#151515] sm:text-5xl lg:text-[56px] dark:text-white">
+            Built for{" "}
+            <span className="font-serif italic font-semibold text-[#F56627]">
+              explorers on the go.
+            </span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-[560px] text-sm leading-6 text-neutral-500 sm:text-base sm:leading-7 dark:text-neutral-400">
+            Walmo is live on iOS. Save a restaurant from a reel on the train,
+            browse your map at home, explore when you land.
+          </p>
+        </header>
+
+  <div className="mx-auto grid grid-cols-1 items-start justify-items-center gap-10 sm:grid-cols-3 sm:gap-8 lg:gap-12">
+          <div className="w-full max-w-[280px]">
+            <Image
+              src="/assets/places/ss1.png"
+              alt="Walmo saved places screen"
+              width={560}
+              height={1120}
+              className="h-auto w-full object-contain"
+              priority
+            />
+          </div>
+
+          <div className="w-full max-w-[280px]">
+            <Image
+              src="/assets/places/home-screen.jpg"
+              alt="Walmo home screen"
+              width={560}
+              height={1120}
+              className="h-auto w-full object-contain"
+            />
+          </div>
+
+          <div className="w-full max-w-[280px]">
+            <Image
+              src="/assets/places/ss2.png"
+              alt="Walmo place details screen"
+              width={560}
+              height={1120}
+              className="h-auto w-full object-contain"
+            />
+          </div>
+
+        </div>
+
+        {/* Feature descriptions restored below the phone screenshots */}
+        <div className="mx-auto mt-4 grid w-full max-w-[1200px] grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-8 lg:gap-12">
+          <article className="flex flex-col items-center px-3 text-center sm:items-start sm:text-left">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF0E5] text-[#F56627]">
+              <Bookmark size={24} strokeWidth={1.8} />
+            </div>
+            <h3 className="font-serif text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
+              Save from any reel
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+              Every place from your reels — organized in a searchable wishlist you can filter and sort.
+            </p>
+          </article>
+
+          <article className="flex flex-col items-center px-3 text-center sm:items-start sm:text-left">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF0E5] text-[#F56627]">
+              <Map size={24} strokeWidth={1.8} />
+            </div>
+            <h3 className="font-serif text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
+              Your places on a map
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+            Paste a reel link or share from Instagram — Walmo extracts every place and saves it to your map.
+            </p>
+          </article>
+
+          <article className="flex flex-col items-center px-3 text-center sm:items-start sm:text-left">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF0E5] text-[#F56627]">
+              <Sparkle size={24} strokeWidth={1.8} />
+            </div>
+            <h3 className="font-serif text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
+              Deep-dive any spot
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+              Ratings, hours, AI summaries, and one tap to navigate there.
+            </p>
+          </article>
+        </div>
+
+        </div>
+    </section>
+    </ScrollReveal>
+  );
+}

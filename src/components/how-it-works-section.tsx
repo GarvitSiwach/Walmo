@@ -1,0 +1,103 @@
+import { ScrollReveal } from "@/components/scroll-reveal";
+import Image from "next/image";
+
+const steps = [
+  {
+    number: "01",
+    title: "Share a reel",
+    description:
+      "Send an Instagram, TikTok or YouTube reel. Walmo finds the places for you.",
+    image: "/assets/places/work1.png",
+    alt: "Walmo finding places from a shared social media reel",
+    scale: 0.9,
+  },
+  {
+    number: "02",
+    title: "Find it on yourap",
+    description:
+      "Your saved spots, organised by city and ready to rediscover.",
+    image: "/assets/places/work2.png",
+    alt: "Walmo map showing saved places and destinations",
+    scale: 1.0,
+  },
+  {
+    number: "03",
+    title: "Make it happen",
+    description:
+      "Build a day plan from your saves, or head straight out.",
+    image: "/assets/places/work3.png",
+    alt: "A planned day of places to visit with Walmo",
+    scale: 1.0,
+  },
+];
+
+export function HowItWorksSection() {
+  return (
+    <ScrollReveal>
+      <section
+      id="how-it-works"
+      className="relative w-full overflow-hidden bg-transparent px-6 py-16 sm:px-10 sm:py-20 lg:px-12 lg:py-24"
+    >
+      <div className="mx-auto max-w-[1280px]">
+        <header className="mb-12 grid grid-cols-1 items-end gap-6 md:mb-14 md:grid-cols-[1.2fr_0.8fr] md:gap-16">
+          <div>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.28em] text-[#F56627]">
+              How it works
+            </p>
+
+            <h2 className="max-w-[680px] text-4xl font-extrabold leading-[1.02] tracking-[-0.055em] text-[#111318] sm:text-5xl lg:text-[76px] dark:text-white">
+              From scroll to
+              <br />
+              <span className="italic text-[#F56627]">
+                your next spot
+              </span>
+              .
+            </h2>
+          </div>
+
+          <p className="max-w-[470px] text-base leading-7 text-slate-500 sm:text-lg sm:leading-[1.9rem] md:justify-self-end dark:text-neutral-400">
+            Turn the places you see online into a real plan. Walmo finds,
+            maps and helps you explore the spots you actually want to go to.
+          </p>
+        </header>
+
+        <div className="grid grid-cols-1 gap-12 sm:gap-14 md:grid-cols-3 md:gap-7 lg:gap-10">
+          {steps.map((step) => (
+            <article key={step.number} className="min-w-0">
+              <div className="mb-5 flex items-center gap-3">
+                <span className="shrink-0 text-[38px] font-semibold leading-none tracking-[-0.05em] text-[#F56627] sm:text-[44px]">
+                  {step.number}
+                </span>
+
+                <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-neutral-200 bg-white/70 dark:border-neutral-700 dark:bg-neutral-900">
+                  <span className="h-3.5 w-3.5 rounded-full bg-[#F56627] ring-4 ring-[#F56627]/10" />
+                </span>
+
+                <span className="h-px min-w-0 flex-1 bg-neutral-300 dark:bg-neutral-700" />
+              </div>
+
+              <h3 className="mb-2 text-[25px] font-bold leading-tight tracking-[-0.04em] text-[#111318] sm:text-[27px] dark:text-white">
+                {step.title}
+              </h3>
+
+              <p className="mb-5 max-w-[390px] text-base leading-[1.55] text-slate-500 dark:text-neutral-400">
+                {step.description}
+              </p>
+
+              <div className="relative aspect-[5/4] w-full overflow-hidden rounded-[20px]">
+                <Image
+                  src={step.image}
+                  alt={step.alt}
+                  fill
+                  sizes="(max-width: 767px) 100vw, (max-width: 1200px) 33vw, 400px"
+                  className="object-contain object-center" style={{ transform: `translateY(${step.number === "01" ? 0 : 27}px) scale(${step.scale ?? 1})` }}
+                />
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+    </ScrollReveal>
+  );
+}

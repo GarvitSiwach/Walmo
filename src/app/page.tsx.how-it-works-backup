@@ -1,0 +1,21 @@
+import React from "react";
+import { RoadmapSection } from "@/components/roadmap-section";
+import { Navbar } from "@/components/navbar";
+import { Hero } from "@/components/hero";
+import { AppShowcase } from "@/components/app-showcase";
+import { TheAppSection } from "@/components/the-app-section";
+
+export default function HomePage() {
+  return (
+    <main className="min-h-screen w-full bg-background text-foreground flex flex-col transition-colors duration-200 overflow-x-hidden">
+      {/* Navigation Bar */}
+      <Navbar />
+
+      {/* Cinematic Hero Section */}
+      <Hero />
+      <AppShowcase />
+      <RoadmapSection />
+      <TheAppSection />
+    </main>
+  );
+}

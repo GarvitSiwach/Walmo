@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Theme (Default) */
+    --background: #F5F5F7;
+    --surface: #FFFFFF;
+    --surface-secondary: #EBEBED;
+    --primary: #F56627;
+    --primary-hover: #E05518;
+    --foreground: #151515;
+    --muted: #929292;
+    --border: #E7E7E9;
+    --accent-soft: #F8E7E2;
+    --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.07), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+  }
+
+  [data-theme="dark"],
+  .dark {
+    /* Dark Theme */
+    --background: #101010;
+    --surface: #1C1C1E;
+    --surface-secondary: #2C2C2E;
+    --primary: #FF702F;
+    --primary-hover: #FF8347;
+    --foreground: #F5F5F7;
+    --muted: #A1A1A6;
+    --border: #333337;
+    --accent-soft: #35231D;
+    --card-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.08);
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-feature-settings: "rlig" 1, "calt" 1;
+    min-height: 100vh;
+  }
+}
+
+/* Accessibility: respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Subtle custom utility classes */
+.glass-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--card-shadow);
+}
+
+.subtle-badge {
+  background: var(--accent-soft);
+  color: var(--primary);
+  border: 1px solid rgba(245, 102, 39, 0.15);
+}
+
+.focus-ring {
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+}
+
+
+/* Walmo scroll reveal */
+.scroll-reveal {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.scroll-reveal.scroll-reveal-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .scroll-reveal.scroll-reveal-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+
+
+
+
+/* Sloped top edge belongs to the footer itself */
+footer[data-footer-theme-text] {
+  position: relative;
+  isolation: isolate;
+  border-top: 0 !important;
+}
+
+footer[data-footer-theme-text]::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  top: -72px;
+  height: 73px;
+  background: inherit;
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  pointer-events: none;
+}
+
+
+/* Car travelling along the sloped footer boundary */
+footer[data-footer-theme-text]::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -51px;
+  left: 13%;
+  width: clamp(64px, 7vw, 100px);
+  aspect-ratio: 3 / 2;
+  background-image: url("/assets/places/lightthemecar.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  pointer-events: none;
+}
+
+/* Invert the same car asset in dark mode */
+html.dark footer[data-footer-theme-text]::after,
+.dark footer[data-footer-theme-text]::after,
+html[data-theme="dark"] footer[data-footer-theme-text]::after,
+[data-theme="dark"] footer[data-footer-theme-text]::after {
+  filter: invert(1);
+}
+
+
+
+
+@media (max-width: 640px) {
+  footer[data-footer-theme-text]::after {
+    top: -52px;
+    left: 10%;
+    width: 62px;
+  }
+}
+
+/* Walmo: slightly more compact overall typography */
+html {
+  font-size: 15px;
+}
+
+@media (min-width: 1536px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+    
+/* Fill beneath the uphill curve */
+
+
+.walmo-uphill-line {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.dark .walmo-uphill-line,
+[data-theme="dark"] .walmo-uphill-line {
+  stroke: #ffffff;
+}
+
+ 
+/* Walmo smooth section navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+#features {
+  scroll-margin-top: 110px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

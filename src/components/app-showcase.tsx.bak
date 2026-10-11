@@ -1,0 +1,58 @@
+"use client";
+
+import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+export function AppShowcase() {
+  return (
+    <section
+      id="app"
+      className="relative isolate w-full overflow-hidden bg-[#faf9f8] py-20 sm:py-24 lg:py-28"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 68%, rgba(255,116,57,0.22), transparent 48%), radial-gradient(ellipse at 50% 40%, #ffffff 0%, transparent 72%)",
+        }}
+      />
+
+      <div className="relative mx-auto flex min-h-[560px] max-w-[1500px] items-center justify-center px-5 sm:min-h-[680px] lg:min-h-[820px]">
+
+          {/* Center phone: appimage1 */}
+          <div className="absolute left-1/2 top-1/2 z-20 h-[94%] w-[39%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[28px] shadow-none sm:rounded-[40px] sm:rounded-[40px] lg:w-[34%]">
+            <Image
+              src="/assets/appimage1.png"
+              alt="Walmo home screen"
+              fill
+              priority
+              sizes="(max-width: 640px) 39vw, 380px"
+              className="object-cover object-top"
+            />
+          </div>
+
+          {/* Right phone: appimage3 */}
+          <div className="absolute right-[3%] top-[12%] z-10 h-[72%] w-[31%] rotate-[7deg] overflow-hidden rounded-[24px] shadow-none sm:rounded-[34px] sm:rounded-[34px] lg:right-[7%] lg:h-[75%] lg:w-[30%]">
+            <Image
+              src="/assets/appimage3.png"
+              alt="Walmo trip itinerary screen"
+              fill
+              priority
+              sizes="(max-width: 640px) 31vw, 320px"
+              className="object-cover object-top"
+            />
+          </div>
+        </div>
+
+        <button
+          type="button"
+          aria-label="Next app screenshot"
+          className="absolute right-3 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-[#ff641f] shadow-lg transition hover:scale-105 sm:right-8 sm:h-16 sm:w-16 lg:right-10 lg:h-20 lg:w-20"
+        >
+          <ChevronRight className="h-7 w-7 sm:h-9 sm:w-9" />
+        </button>
+      </div>
+    </section>
+  );
+}

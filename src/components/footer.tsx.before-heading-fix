@@ -1,0 +1,123 @@
+import Link from "next/link";
+import { Logo } from "@/components/logo";
+
+const columns = [
+  {
+    title: "PRODUCT",
+    links: [
+      { label: "Features", href: "#features" },
+      { label: "The app", href: "#the-app" },
+      { label: "How it works", href: "#how-it-works" },
+      { label: "Guides", href: "#guides" },
+    ],
+  },
+  {
+    title: "COMPANY",
+    links: [
+      { label: "About", href: "#about" },
+      { label: "Support", href: "mailto:support@walmo.app" },
+      { label: "Contact", href: "mailto:support@walmo.app" },
+    ],
+  },
+  {
+    title: "LEGAL",
+    links: [
+      { label: "Privacy", href: "/privacy" },
+      { label: "Terms", href: "/terms" },
+      { label: "Cookies", href: "/cookies" },
+    ],
+  },
+];
+
+export function Footer() {
+  return (
+    <footer data-footer-theme-text="FOOTER_THEME_TEXT_FIX" data-theme-colors="FOOTER_THEME_COLORS" className="relative w-full border-t border-border bg-black text-white dark:bg-white dark:text-black">
+<div className="mx-auto max-w-[1360px] px-6 pb-7 pt-16 sm:px-10 lg:px-12">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-[minmax(0,2.8fr)_repeat(3,minmax(0,0.65fr))] md:gap-x-10">
+          <div className="col-span-2 md:col-span-1">
+            <Link href="/" aria-label="Walmo home" className="inline-flex items-center">
+              <Logo />
+            </Link>
+
+            <p className="mt-7 text-base leading-7 text-muted-foreground">
+              Save places from reels. Pin them on a map. Actually go.
+            </p>
+
+            <div className="mt-6 flex items-center gap-3">
+              <a
+                href="https://apps.apple.com/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Download on the App Store"
+                className="inline-flex h-[59px] items-center gap-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-700 px-5 text-white transition hover:brightness-105"
+              >
+                <svg viewBox="0 0 24 24" className="h-8 w-8 fill-current" aria-hidden="true">
+                  <path d="M16.37 12.14c.02 2.12 1.86 2.83 1.88 2.84-.02.05-.29 1-.96 1.98-.58.85-1.19 1.69-2.15 1.71-.94.02-1.24-.55-2.31-.55-1.07 0-1.41.53-2.3.57-.92.04-1.62-.92-2.2-1.77-1.19-1.73-2.1-4.89-.88-7.02.61-1.06 1.7-1.73 2.88-1.75.9-.02 1.75.61 2.3.61.55 0 1.58-.76 2.66-.65.45.02 1.72.18 2.54 1.37-.07.04-1.52.89-1.5 2.66ZM14.62 5.9c.49-.59.82-1.4.73-2.21-.71.03-1.57.47-2.08 1.05-.46.53-.86 1.35-.75 2.14.79.06 1.6-.4 2.1-.98Z"/>
+                </svg>
+                <span className="whitespace-nowrap text-left">
+                  <span className="block text-[9px] leading-3 uppercase tracking-wide">
+                    Download on the
+                  </span>
+                  <span className="block text-base font-semibold leading-5">
+                    App Store
+                  </span>
+                </span>
+              </a>
+
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                className="inline-flex h-[44px] w-[44px] shrink-0 items-center justify-center transition-transform duration-200 hover:scale-110"
+              >
+                <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="instagram-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#FFDC80" />
+                      <stop offset="30%" stopColor="#FCAF45" />
+                      <stop offset="55%" stopColor="#F77737" />
+                      <stop offset="75%" stopColor="#E1306C" />
+                      <stop offset="100%" stopColor="#833AB4" />
+                    </linearGradient>
+                  </defs>
+                  <rect x="2.5" y="2.5" width="19" height="19" rx="5.5"
+                    fill="none" stroke="url(#instagram-gradient)" strokeWidth="2.2" />
+                  <circle cx="12" cy="12" r="4.2"
+                    fill="none" stroke="url(#instagram-gradient)" strokeWidth="2.2" />
+                  <circle cx="17.7" cy="6.5" r="1.3" fill="#E1306C" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {columns.map((column) => (
+            <nav key={column.title} aria-label={column.title}>
+              <h2 className="text-[11px] font-bold leading-4 tracking-[0.16em] text-foreground">
+                {column.title}
+              </h2>
+              <ul className="mt-7 space-y-6">
+                {column.links.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-base leading-6 text-muted-foreground transition-colors hover:text-orange-500"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+        </div>
+
+        <div className="mt-14 flex flex-col gap-4 border-t border-border pt-6 text-sm leading-6 text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Walmo. All rights reserved.</p>
+          <p className="sm:text-right">
+            Made for travelers who save more reels than they watch.
+          </p>        </div>
+      </div>
+    </footer>
+  );
+}

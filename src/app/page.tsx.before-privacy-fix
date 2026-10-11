@@ -1,0 +1,29 @@
+import React from "react";
+import { RoadmapSection } from "@/components/roadmap-section";
+import { Navbar } from "@/components/navbar";
+import { Hero } from "@/components/hero";
+import { AppShowcase } from "@/components/app-showcase";
+import { TheAppSection } from "@/components/the-app-section";
+import { FeaturesSection } from "@/components/features-section";
+import { HowItWorksSection } from "@/components/how-it-works-section";
+import { DownloadSection } from "@/components/download-section";
+import { Footer } from "@/components/footer";
+
+export default function HomePage() {
+  return (
+    <main className="min-h-screen w-full bg-background text-foreground flex flex-col transition-colors duration-200 overflow-x-hidden">
+      {/* Navigation Bar */}
+      <Navbar />
+
+      {/* Cinematic Hero Section */}
+      <Hero />
+      <AppShowcase />
+      <RoadmapSection />
+      <FeaturesSection />
+      <TheAppSection />
+          <HowItWorksSection />
+      <DownloadSection />
+      <Footer />
+    </main>
+  );
+}
