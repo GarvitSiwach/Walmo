@@ -153,10 +153,8 @@ export default function PrivacyPage() {
                 </ul>
               )}
 
-              {section.paragraphs?.map((paragraph) => (
-                <p key={paragraph.includes("Questions or concerns?") ? (
-                  <>Questions or concerns? Email <a href="mailto:privacy@walmo.app" className="text-primary underline underline-offset-4">privacy@walmo.app</a>. We aim to respond within 5 business days.</>
-                ) : paragraph} className="mt-4 leading-8 text-foreground/80">
+              {section.paragraphs?.map((paragraph, index) => (
+                <p key={index} className="mt-4 leading-8 text-foreground/80">
                   {paragraph.includes("Questions or concerns?") ? (
                   <>Questions or concerns? Email <a href="mailto:privacy@walmo.app" className="text-primary underline underline-offset-4">privacy@walmo.app</a>. We aim to respond within 5 business days.</>
                 ) : paragraph}
