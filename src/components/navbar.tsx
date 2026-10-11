@@ -60,7 +60,7 @@ export function Navbar() {
           <Logo />
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center lg: xl: absolute left-1/2 -translate-x-1/2 flex items-center justify-center gap-7 lg:gap-8">
+          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center justify-center gap-7 whitespace-nowrap md:flex lg:gap-8">
             {siteConfig.navLinks.map((link) => (
               <a
                 key={link.label}
